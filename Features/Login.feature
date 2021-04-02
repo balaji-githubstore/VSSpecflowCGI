@@ -14,7 +14,6 @@ Scenario: Invalid Credential
 	And I select the language as 'English (Indian)'
 	And I click on login
 	Then I should get the error detail as 'Invalid username or password'
-
 @valid
 Scenario Outline: Valid Credential
 	When I enter username as '<username>'
