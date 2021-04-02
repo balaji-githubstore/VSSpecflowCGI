@@ -15,6 +15,7 @@ Scenario: Invalid Credential
 	And I click on login
 	Then I should get the error detail as 'Invalid username or password'
 
+@valid
 Scenario Outline: Valid Credential
 	When I enter username as '<username>'
 	And I enter password as '<password>'
