@@ -15,8 +15,8 @@ namespace OpenEmrApplication.Steps
         [Given(@"I have browser with openemr url")]
         public void GivenIHaveBrowserWithOpenemrUrl()
         {
-           var dt= ExcelUtils.SheetToDataTable(@"D:\Report\OpenEMRData.xlsx", "Invalid Credential");
-            OpenEmrHooks.driver = new ChromeDriver(@"D:\B-Mine\Company\Company\CGI2\OpenEmrApplication\OpenEmrApplication\Drivers\");
+           //var dt= ExcelUtils.SheetToDataTable(@"D:\Report\OpenEMRData.xlsx", "Invalid Credential");
+            OpenEmrHooks.driver = new ChromeDriver(@"D:\B-Mine\Company\Specflow\OpenEmrApplication_2021\OpenEmrApplication\Drivers\");
             OpenEmrHooks.driver.Manage().Window.Maximize();
             OpenEmrHooks.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(20);
             OpenEmrHooks.driver.Url = "http://demo.openemr.io/b/openemr/interface/login/login.php?site=default";

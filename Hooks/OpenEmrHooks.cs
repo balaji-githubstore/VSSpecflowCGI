@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Infrastructure;
 
 namespace OpenEmrApplication.Hooks
 {
@@ -13,12 +14,7 @@ namespace OpenEmrApplication.Hooks
     {
         public static IWebDriver driver;
 
-        [AfterScenario]
-        public void TearDown()
-        {
-            OpenEmrHooks.driver.Quit();
-        }
-
+      
         public static ExtentReports extent;
 
         private static ExtentTest feature;
@@ -27,13 +23,14 @@ namespace OpenEmrApplication.Hooks
 
         private readonly ScenarioContext scenarioContext;
         private readonly FeatureContext featureContext;
-
-        public OpenEmrHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
+        ISpecFlowOutputHelper helper;
+        public OpenEmrHooks(FeatureContext featureContext, ScenarioContext scenarioContext,ISpecFlowOutputHelper helper)
         {
             if (scenarioContext == null) throw new ArgumentNullException("scenarioContext");
             this.scenarioContext = scenarioContext;
             if (featureContext == null) throw new ArgumentNullException("FeatureContext");
             this.featureContext = featureContext;
+            this.helper = helper;
         }
 
 
@@ -79,5 +76,20 @@ namespace OpenEmrApplication.Hooks
                 scenario.CreateNode(new GherkinKeyword(stepType),  scenarioContext.StepContext.StepInfo.Text).Fail(scenarioContext.TestError.Message);
             }
         }
+
+        public void Helper()
+        {
+            helper.WriteLine("Completed -" + scenarioContext.ScenarioInfo.Title);
+            helper.AddAttachment(@"C:\Components\Screenshot\dump_4091466144279796129.png");
+
+        }
+
+        [AfterScenario]
+        public void TearDown()
+        {
+            Helper();
+            OpenEmrHooks.driver.Quit();
+        }
+
     }
 }
